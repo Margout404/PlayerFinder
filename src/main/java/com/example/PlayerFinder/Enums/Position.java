@@ -1,0 +1,7 @@
+package com.example.PlayerFinder.Enums;
+
+public enum Position {
+    GK, LB, CB, RB,
+    CDM, CM, CAM,
+    LW, RW, ST
+}
