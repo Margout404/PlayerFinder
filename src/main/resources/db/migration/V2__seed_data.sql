@@ -2,28 +2,28 @@
 -- USERS
 -- ==========================================
 
-INSERT INTO users (email, role)
-VALUES ('player1@mail.com', 'PLAYER'),
-       ('player2@mail.com', 'PLAYER'),
-       ('player3@mail.com', 'PLAYER'),
-       ('player4@mail.com', 'PLAYER'),
-       ('player5@mail.com', 'PLAYER'),
-       ('player6@mail.com', 'PLAYER'),
-       ('player7@mail.com', 'PLAYER'),
-       ('player8@mail.com', 'PLAYER'),
-       ('player9@mail.com', 'PLAYER'),
-       ('player10@mail.com', 'PLAYER'),
+INSERT INTO users (email, password, role)
+VALUES ('player1@mail.com', '12444444', 'PLAYER'),
+       ('player2@mail.com', '12444444', 'PLAYER'),
+       ('player3@mail.com', '12444444', 'PLAYER'),
+       ('player4@mail.com', '12444444', 'PLAYER'),
+       ('player5@mail.com', '12444444', 'PLAYER'),
+       ('player6@mail.com', '12444444', 'PLAYER'),
+       ('player7@mail.com', '12444444', 'PLAYER'),
+       ('player8@mail.com', '12444444', 'PLAYER'),
+       ('player9@mail.com', '12444444', 'PLAYER'),
+       ('player10@mail.com', '12444444', 'PLAYER'),
 
-       ('team1@mail.com', 'TEAM'),
-       ('team2@mail.com', 'TEAM'),
-       ('team3@mail.com', 'TEAM'),
-       ('team4@mail.com', 'TEAM'),
-       ('team5@mail.com', 'TEAM'),
-       ('team6@mail.com', 'TEAM'),
-       ('team7@mail.com', 'TEAM'),
-       ('team8@mail.com', 'TEAM'),
-       ('team9@mail.com', 'TEAM'),
-       ('team10@mail.com', 'TEAM');
+       ('team1@mail.com', '12444444', 'TEAM'),
+       ('team2@mail.com', '12444444', 'TEAM'),
+       ('team3@mail.com', '12444444', 'TEAM'),
+       ('team4@mail.com', '12444444', 'TEAM'),
+       ('team5@mail.com', '12444444', 'TEAM'),
+       ('team6@mail.com', '12444444', 'TEAM'),
+       ('team7@mail.com', '12444444', 'TEAM'),
+       ('team8@mail.com', '12444444', 'TEAM'),
+       ('team9@mail.com', '12444444', 'TEAM'),
+       ('team10@mail.com', '12444444', 'TEAM');
 
 
 -- ==========================================

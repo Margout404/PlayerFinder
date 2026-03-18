@@ -4,6 +4,6 @@ import com.example.PlayerFinder.Enums.Role;
 
 public record UserCreateDTO (
         String email,
-        Role role
-){
+        Role role,
+        String password){
 }

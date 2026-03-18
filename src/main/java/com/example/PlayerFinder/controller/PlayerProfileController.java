@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,16 +20,19 @@ public class PlayerProfileController {
     PlayerService playerService;
 
     @PostMapping("/createPlayerProfile")
+    @PreAuthorize("hasRole('PLAYER')")
     public PlayerProfileResponse create(@RequestBody CreatePlayerProfileRequest request){
         return playerService.createPlayerProfile(request);
     }
 
     @GetMapping("/getByUserId/{id}")
+    @PreAuthorize("hasRole('PLAYER')")
     public PlayerProfileResponse getByUserId(@PathVariable Long id){
         return playerService.getPlayerByUserId(id);
     }
 
     @GetMapping("/search")
+    @PreAuthorize("hasRole('PLAYER')")
     public Page<PlayerProfileResponse> searchPlayers(
             @RequestParam(required = false) Position position,
             @RequestParam(required = false) Category category,
