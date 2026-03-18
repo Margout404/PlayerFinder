@@ -3,6 +3,8 @@ package com.example.PlayerFinder.repositories;
 import com.example.PlayerFinder.Enums.Category;
 import com.example.PlayerFinder.Enums.Position;
 import com.example.PlayerFinder.models.PlayerProfile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 public interface PlayerProfileRepository extends JpaRepository<PlayerProfile, Long> {
@@ -26,15 +27,18 @@ public interface PlayerProfileRepository extends JpaRepository<PlayerProfile, Lo
                 :category MEMBER OF p.preferredCategories)
         AND
             (:city IS NULL OR
-                LOWER(p.city) = LOWER(:city))
+                LOWER(p.city) LIKE LOWER(CONCAT('%', :city, '%')))
     """)
-    List<PlayerProfile> searchPlayers(
+    Page<PlayerProfile> searchPlayers(
             @Param("position") Position position,
             @Param("category") Category category,
-            @Param("city") String city
+            @Param("city") String city,
+            Pageable pageable
     );
 
     Optional<PlayerProfile> findByUserId(Long userId);
 
     List<PlayerProfile> findByCity(String city);
+
+    String city(String city);
 }

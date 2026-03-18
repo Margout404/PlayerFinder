@@ -24,8 +24,10 @@ public class PlayerProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fName;
-    private String lName;
+    @Column(name = "f_name")
+    private String firstName;
+    @Column(name = "l_name")
+    private String lastName;
     private Integer ageInYears;
     private String city;
 
@@ -50,8 +52,14 @@ public class PlayerProfile {
     @Enumerated(EnumType.STRING)
     private Set<Category> preferredCategories = new HashSet<>();
 
+    @ElementCollection(targetClass = Availability.class)
+    @CollectionTable(
+            name = "player_availability",
+            joinColumns = @JoinColumn(name = "player_id")
+    )
+    @Column(name = "day", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Availability availability;
+    private Set<Availability> availability;
 
     @Column(length = 500)
     private String description;

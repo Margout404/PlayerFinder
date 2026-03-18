@@ -5,9 +5,9 @@ CREATE TABLE users
 (
     id         BIGINT AUTO_INCREMENT PRIMARY KEY,
     email      VARCHAR(255) NOT NULL UNIQUE,
-    role       VARCHAR(50) ,
+    role       VARCHAR(50),
     created_at DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    active     BOOLEAN DEFAULT TRUE
+    active     BOOLEAN               DEFAULT TRUE
 );
 
 -- ==========================================
@@ -22,7 +22,6 @@ CREATE TABLE player_profile
     age_in_years     INT,
     city             VARCHAR(255),
     primary_position VARCHAR(50),
-    availability     VARCHAR(50),
     description      VARCHAR(500),
 
     CONSTRAINT fk_player_user
@@ -153,6 +152,18 @@ CREATE TABLE player_preferred_categories
         FOREIGN KEY (player_id)
             REFERENCES player_profile (id)
             ON DELETE CASCADE
+);
+
+CREATE TABLE player_availability
+(
+    player_id BIGINT      NOT NULL,
+    day       VARCHAR(50) NOT NULL,
+
+    PRIMARY KEY (player_id, day),
+
+    FOREIGN KEY (player_id)
+        REFERENCES player_profile (id)
+        ON DELETE CASCADE
 );
 
 -- ==========================================
