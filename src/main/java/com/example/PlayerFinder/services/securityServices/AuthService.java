@@ -56,7 +56,9 @@ public class AuthService {
                 )
         );
 
-        String token = jwtService.generateToken(request.email());
+        User user = userRepository.findByEmail(request.email()).orElseThrow(()->new RuntimeException("User not found"));
+
+        String token = jwtService.generateToken(user);
 
         return new LoginResponse(token);
     }

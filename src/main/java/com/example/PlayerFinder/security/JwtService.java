@@ -1,5 +1,6 @@
 package com.example.PlayerFinder.security;
 
+import com.example.PlayerFinder.models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,11 +21,13 @@ public class JwtService {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
-    public String generateToken(String email) {
+    public String generateToken(User user) {
 
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
+                .claim("userId",user.getId())
+                .claim("role", user.getRole().name())
                 .setExpiration(
                         new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)
                 )
@@ -58,5 +61,10 @@ public class JwtService {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
+
+    public Long extractUserId(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("userId", Long.class);
     }
 }
