@@ -2,7 +2,6 @@ package com.example.PlayerFinder.DTO.playerRequest;
 
 import com.example.PlayerFinder.Enums.RequestStatus;
 import com.example.PlayerFinder.models.PlayerRequest;
-import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
 @Component
