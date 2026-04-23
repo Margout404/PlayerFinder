@@ -16,6 +16,7 @@ public class TeamProfileService {
 
     @Autowired
     TeamProfileRepository teamProfileRepository;
+
     @Autowired
     UserRepository userRepository;
 
