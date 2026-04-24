@@ -5,6 +5,7 @@ import com.example.PlayerFinder.DTO.playerRequest.PlayerRequestMapper;
 import com.example.PlayerFinder.DTO.playerRequest.PlayerRequestResponse;
 import com.example.PlayerFinder.Enums.Category;
 import com.example.PlayerFinder.Enums.Position;
+import com.example.PlayerFinder.ErrorHandling.Exceptions.NotFoundException;
 import com.example.PlayerFinder.models.PlayerRequest;
 import com.example.PlayerFinder.models.TeamProfile;
 import com.example.PlayerFinder.models.User;
@@ -38,7 +39,7 @@ public class PlayerRequestService {
     }
 
     public PlayerRequestResponse createPlayerRequest(CreatePlayerRequest dto, String email){
-        User user= userRepository.findByEmail(email).orElseThrow(()-> new RuntimeException("No User Found"));
+        User user= userRepository.findByEmail(email).orElseThrow(()-> new NotFoundException("No User Found"));
 
         TeamProfile teamProfile= user.getTeamProfile();
 
@@ -52,7 +53,7 @@ public class PlayerRequestService {
         System.out.println("TEAM PROFILE: " + user.getTeamProfile());
 
         if (user.getTeamProfile() == null) {
-            throw new RuntimeException("Authenticated user has no TeamProfile");
+            throw new NotFoundException("Authenticated user has no TeamProfile");
         }
         PlayerRequest saved = playerRequestRepository.save(playerRequest);
         return playerRequestMapper.toResponse(saved);

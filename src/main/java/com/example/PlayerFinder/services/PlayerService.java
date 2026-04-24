@@ -5,6 +5,7 @@ import com.example.PlayerFinder.DTO.playerProfile.PlayerProfileMapper;
 import com.example.PlayerFinder.DTO.playerProfile.PlayerProfileResponse;
 import com.example.PlayerFinder.Enums.Category;
 import com.example.PlayerFinder.Enums.Position;
+import com.example.PlayerFinder.ErrorHandling.Exceptions.NotFoundException;
 import com.example.PlayerFinder.models.PlayerProfile;
 import com.example.PlayerFinder.models.User;
 import com.example.PlayerFinder.repositories.PlayerProfileRepository;
@@ -30,7 +31,8 @@ public class PlayerService {
     public PlayerProfileResponse createPlayerProfile(CreatePlayerProfileRequest dto){
         PlayerProfile playerProfile= mapper.toEntity(dto);
 
-        User user = userRepository.findById(dto.userId()).orElseThrow(()-> new RuntimeException("User not found"));
+        User user = userRepository.findById(dto.userId()).orElseThrow(
+                ()-> new NotFoundException("User not found"));
 
         playerProfile.setUser(user);
         System.out.println(dto.firstName());
@@ -40,7 +42,8 @@ public class PlayerService {
         return mapper.toResponse(saved);
     }
     public PlayerProfileResponse getPlayerByUserId(Long id){
-        PlayerProfile playerProfile= playerProfileRepository.findByUserId(id).orElseThrow(()->new RuntimeException("No player found"));
+        PlayerProfile playerProfile= playerProfileRepository.findByUserId(id).orElseThrow(
+                ()->new NotFoundException("No player found"));
         return mapper.toResponse(playerProfile);
     }
 

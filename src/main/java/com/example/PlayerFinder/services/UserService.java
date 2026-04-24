@@ -3,6 +3,7 @@ package com.example.PlayerFinder.services;
 import com.example.PlayerFinder.DTO.user.UserCreateDTO;
 import com.example.PlayerFinder.DTO.user.UserMapper;
 import com.example.PlayerFinder.DTO.user.UserResponse;
+import com.example.PlayerFinder.ErrorHandling.Exceptions.NotFoundException;
 import com.example.PlayerFinder.models.User;
 import com.example.PlayerFinder.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,8 @@ public class UserService {
     }
 
     public UserResponse getUserByEmail(String email){
-        User user= repository.findByEmail(email).orElseThrow(()-> new RuntimeException("User with this email not found "+ email));
+        User user= repository.findByEmail(email).orElseThrow(
+                ()-> new NotFoundException("User with this email not found "+ email));
         return mapper.toResponse(user);
     }
 

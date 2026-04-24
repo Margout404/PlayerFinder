@@ -1,5 +1,6 @@
 package com.example.PlayerFinder.security;
 
+import com.example.PlayerFinder.ErrorHandling.Exceptions.NotFoundException;
 import com.example.PlayerFinder.models.User;
 import com.example.PlayerFinder.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository
                 .findByEmail(email)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException(
+                        new NotFoundException(
                                 "User not found with email: " + email
                         )
                 );

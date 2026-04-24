@@ -1,10 +1,11 @@
 package com.example.PlayerFinder.ErrorHandling.handler;
 
 
+import com.example.PlayerFinder.ErrorHandling.Exceptions.AlreadyAppliedException;
+import com.example.PlayerFinder.ErrorHandling.Exceptions.NotFoundException;
 import com.example.PlayerFinder.ErrorHandling.dto.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
@@ -21,5 +22,16 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.badRequest().body(error);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException exception){
+        ErrorResponse error = new ErrorResponse(
+                exception.getMessage(),
+                404,
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity.status(404).body(error);
     }
 }

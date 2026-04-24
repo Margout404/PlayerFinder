@@ -3,6 +3,7 @@ package com.example.PlayerFinder.services.securityServices;
 import com.example.PlayerFinder.DTO.login.LoginRequest;
 import com.example.PlayerFinder.DTO.login.LoginResponse;
 import com.example.PlayerFinder.DTO.user.UserCreateDTO;
+import com.example.PlayerFinder.ErrorHandling.Exceptions.NotFoundException;
 import com.example.PlayerFinder.models.User;
 import com.example.PlayerFinder.repositories.UserRepository;
 import com.example.PlayerFinder.security.JwtService;
@@ -56,7 +57,7 @@ public class AuthService {
                 )
         );
 
-        User user = userRepository.findByEmail(request.email()).orElseThrow(()->new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(request.email()).orElseThrow(()->new NotFoundException("User not found"));
 
         String token = jwtService.generateToken(user);
 

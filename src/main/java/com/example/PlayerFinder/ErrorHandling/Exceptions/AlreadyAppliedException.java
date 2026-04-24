@@ -1,4 +1,4 @@
-package com.example.PlayerFinder.ErrorHandling.handler;
+package com.example.PlayerFinder.ErrorHandling.Exceptions;
 
 public class AlreadyAppliedException extends RuntimeException{
 
