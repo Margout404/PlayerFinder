@@ -2,6 +2,7 @@ package com.example.PlayerFinder.ErrorHandling.handler;
 
 
 import com.example.PlayerFinder.ErrorHandling.Exceptions.AlreadyAppliedException;
+import com.example.PlayerFinder.ErrorHandling.Exceptions.ForbiddenException;
 import com.example.PlayerFinder.ErrorHandling.Exceptions.NotFoundException;
 import com.example.PlayerFinder.ErrorHandling.dto.ErrorResponse;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(AlreadyAppliedException.class)
     public ResponseEntity<ErrorResponse> handleAlreadyApplied(AlreadyAppliedException exception){
         ErrorResponse error = new ErrorResponse(
                 exception.getMessage(),
@@ -24,7 +25,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(error);
     }
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException exception){
         ErrorResponse error = new ErrorResponse(
                 exception.getMessage(),
@@ -33,5 +34,16 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(404).body(error);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<ErrorResponse> handleForbiddenException(ForbiddenException exception){
+        ErrorResponse error = new ErrorResponse(
+                exception.getMessage(),
+                403,
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity.status(403).body(error);
     }
 }
